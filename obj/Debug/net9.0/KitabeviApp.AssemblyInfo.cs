@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("KitabeviApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+62e4e883982603bd041ee300e225110af6e26700")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4f9fe77e2ae938fc77399a6236016aa2175f004b")]
 [assembly: System.Reflection.AssemblyProductAttribute("KitabeviApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("KitabeviApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

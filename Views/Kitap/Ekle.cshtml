@@ -1,0 +1,51 @@
+@model KitabeviApp.Models.Kitap
+
+@{
+    ViewData["Title"] = "Yeni Kitap Ekle";
+}
+
+<div style="padding: 20px; max-width: 500px;">
+    <h2>📖 Yeni Kitap Ekle</h2>
+    <hr />
+
+    <form method="post" action="/Kitap/Ekle">
+
+        <div style="margin-bottom: 15px;">
+            <label>Kitap Adı:</label><br />
+            <input type="text" name="Adi" style="width:100%; padding:8px;" 
+                   placeholder="Kitabın adını girin" required />
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label>Yazar:</label><br />
+            <input type="text" name="Yazar" style="width:100%; padding:8px;" 
+                   placeholder="Yazarın adı" required />
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label>ISBN:</label><br />
+            <input type="text" name="ISBN" style="width:100%; padding:8px;" 
+                   placeholder="978-..." />
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label>Fiyat (₺):</label><br />
+            <input type="number" name="Fiyat" style="width:100%; padding:8px;" 
+                   step="0.01" min="0" required />
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label>Stok Adedi:</label><br />
+            <input type="number" name="StokAdedi" style="width:100%; padding:8px;" 
+                   min="0" required />
+        </div>
+
+        <button type="submit" style="background:green; color:white; 
+                padding:10px 20px; border:none; border-radius:4px; cursor:pointer;">
+            💾 Kaydet
+        </button>
+
+        <a href="/Kitap/Index" style="margin-left:10px; color:gray;">İptal</a>
+
+    </form>
+</div>
