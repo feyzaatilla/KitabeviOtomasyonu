@@ -9,5 +9,8 @@ namespace KitabeviApp.Models
 
         public DbSet<Kitap> Kitaplar { get; set; }
         public DbSet<Musteri> Musteriler { get; set; }
+        public DbSet<Satis> Satislar { get; set; }
+        public DbSet<SatisDetay> SatisDetaylari { get; set; }
     }
 }
+
