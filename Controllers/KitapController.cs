@@ -1,19 +1,21 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using KitabeviApp.Models;
 
 namespace KitabeviApp.Controllers
 {
     public class KitapController : Controller
     {
-        // Geçici test verisi — veritabanı olmadan
-        public IActionResult Index()
+        private readonly AppDbContext _db;
+
+        public KitapController(AppDbContext db)
         {
-            var kitaplar = new List<Kitap>
-            {
-                new Kitap { Id=1, Adi="Suç ve Ceza", Yazar="Dostoyevski", Fiyat=85, StokAdedi=10 },
-                new Kitap { Id=2, Adi="1984", Yazar="George Orwell", Fiyat=75, StokAdedi=3 },
-                new Kitap { Id=3, Adi="Simyacı", Yazar="Paulo Coelho", Fiyat=65, StokAdedi=8 }
-            };
+            _db = db;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var kitaplar = await _db.Kitaplar.ToListAsync();
             return View(kitaplar);
         }
 
@@ -23,9 +25,24 @@ namespace KitabeviApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Ekle(Kitap kitap)
+        public async Task<IActionResult> Ekle(Kitap kitap)
         {
+            if (ModelState.IsValid)
+            {
+                _db.Kitaplar.Add(kitap);
+                await _db.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            return View(kitap);
+        }
+
+        public async Task<IActionResult> Sil(int id)
+        {
+            var kitap = await _db.Kitaplar.FindAsync(id);
+            if (kitap == null) return NotFound();
+            _db.Kitaplar.Remove(kitap);
+            await _db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
     }
-} 
+}
