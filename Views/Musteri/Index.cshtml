@@ -1,0 +1,48 @@
+@model List<KitabeviApp.Models.Musteri>
+
+@{
+    ViewData["Title"] = "Müşteri Listesi";
+}
+
+<div style="padding: 20px;">
+    <h2>👤 Müşteri Listesi</h2>
+    <a href="/Musteri/Ekle" style="background:green; color:white; padding:8px 16px; 
+       text-decoration:none; border-radius:4px;">+ Yeni Müşteri Ekle</a>
+
+    <br /><br />
+
+    @if (Model.Count == 0)
+    {
+        <p>Henüz hiç müşteri eklenmemiş.</p>
+    }
+    else
+    {
+        <table border="1" cellpadding="8" style="width:100%; border-collapse:collapse;">
+            <tr style="background:#333; color:white;">
+                <th>Ad</th>
+                <th>Soyad</th>
+                <th>Telefon</th>
+                <th>Email</th>
+                <th>Kayıt Tarihi</th>
+                <th>İşlemler</th>
+            </tr>
+            @foreach (var musteri in Model)
+            {
+                <tr>
+                    <td>@musteri.Ad</td>
+                    <td>@musteri.Soyad</td>
+                    <td>@musteri.Telefon</td>
+                    <td>@musteri.Email</td>
+                    <td>@musteri.KayitTarihi.ToShortDateString()</td>
+                    <td>
+                        <a href="/Musteri/Duzenle/@musteri.Id" 
+                           style="color:orange; margin-right:10px;">Düzenle</a>
+                        <a href="/Musteri/Sil/@musteri.Id" 
+                           onclick="return confirm('Silmek istediğinize emin misiniz?')"
+                           style="color:red;">Sil</a>
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+</div>

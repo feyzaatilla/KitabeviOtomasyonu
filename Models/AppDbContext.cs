@@ -8,5 +8,6 @@ namespace KitabeviApp.Models
             : base(options) { }
 
         public DbSet<Kitap> Kitaplar { get; set; }
+        public DbSet<Musteri> Musteriler { get; set; }
     }
 }

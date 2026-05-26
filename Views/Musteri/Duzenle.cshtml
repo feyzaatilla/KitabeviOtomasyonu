@@ -1,0 +1,48 @@
+@model KitabeviApp.Models.Musteri
+
+@{
+    ViewData["Title"] = "Müşteri Düzenle";
+}
+
+<div style="padding: 20px; max-width: 500px;">
+    <h2>✏️ Müşteri Düzenle</h2>
+    <hr />
+
+    <form method="post" action="/Musteri/Duzenle">
+
+        <input type="hidden" name="Id" value="@Model.Id" />
+        <input type="hidden" name="KayitTarihi" value="@Model.KayitTarihi" />
+
+        <div style="margin-bottom: 15px;">
+            <label>Ad:</label><br />
+            <input type="text" name="Ad" value="@Model.Ad" 
+                   style="width:100%; padding:8px;" required />
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label>Soyad:</label><br />
+            <input type="text" name="Soyad" value="@Model.Soyad" 
+                   style="width:100%; padding:8px;" required />
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label>Telefon:</label><br />
+            <input type="text" name="Telefon" value="@Model.Telefon" 
+                   style="width:100%; padding:8px;" />
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label>Email:</label><br />
+            <input type="email" name="Email" value="@Model.Email" 
+                   style="width:100%; padding:8px;" />
+        </div>
+
+        <button type="submit" style="background:orange; color:white; 
+                padding:10px 20px; border:none; border-radius:4px; cursor:pointer;">
+            💾 Güncelle
+        </button>
+
+        <a href="/Musteri/Index" style="margin-left:10px; color:gray;">İptal</a>
+
+    </form>
+</div>
