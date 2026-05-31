@@ -1,0 +1,74 @@
+@{
+    ViewData["Title"] = "Raporlar";
+}
+
+<div style="padding: 20px;">
+    <h2>📊 Raporlar</h2>
+    <hr />
+
+    <!-- Özet Kutular -->
+    <div style="display:flex; gap:20px; margin-bottom:30px;">
+        
+        <div style="background:#4CAF50; color:white; padding:20px; 
+                    border-radius:8px; flex:1; text-align:center;">
+            <h3>💰 Toplam Gelir</h3>
+            <h2>@ViewBag.ToplamGelir.ToString("C")</h2>
+        </div>
+
+        <div style="background:#2196F3; color:white; padding:20px; 
+                    border-radius:8px; flex:1; text-align:center;">
+            <h3>🛒 Toplam Satış</h3>
+            <h2>@ViewBag.ToplamSatis</h2>
+        </div>
+
+        <div style="background:#9C27B0; color:white; padding:20px; 
+                    border-radius:8px; flex:1; text-align:center;">
+            <h3>👤 Toplam Müşteri</h3>
+            <h2>@ViewBag.ToplamMusteri</h2>
+        </div>
+
+    </div>
+
+    <!-- En Çok Satan Kitaplar -->
+    <h3>📚 En Çok Satan Kitaplar</h3>
+    <table border="1" cellpadding="8" style="width:100%; border-collapse:collapse; margin-bottom:30px;">
+        <tr style="background:#333; color:white;">
+            <th>Kitap Adı</th>
+            <th>Satılan Adet</th>
+            <th>Toplam Gelir</th>
+        </tr>
+        @foreach (var kitap in ViewBag.EnCokSatan)
+        {
+            <tr>
+                <td>@kitap.KitapAdi</td>
+                <td>@kitap.ToplamAdet adet</td>
+                <td>@kitap.ToplamGelir.ToString("C")</td>
+            </tr>
+        }
+    </table>
+
+    <!-- Az Stoklu Kitaplar -->
+    <h3>⚠️ Stoku Az Olan Kitaplar (5'ten az)</h3>
+    @if (ViewBag.AzStok.Count == 0)
+    {
+        <p style="color:green;">Tüm kitapların stoğu yeterli!</p>
+    }
+    else
+    {
+        <table border="1" cellpadding="8" style="width:100%; border-collapse:collapse;">
+            <tr style="background:#f44336; color:white;">
+                <th>Kitap Adı</th>
+                <th>Yazar</th>
+                <th>Kalan Stok</th>
+            </tr>
+            @foreach (var kitap in ViewBag.AzStok)
+            {
+                <tr>
+                    <td>@kitap.Adi</td>
+                    <td>@kitap.Yazar</td>
+                    <td style="color:red; font-weight:bold;">@kitap.StokAdedi</td>
+                </tr>
+            }
+        </table>
+    }
+</div>
