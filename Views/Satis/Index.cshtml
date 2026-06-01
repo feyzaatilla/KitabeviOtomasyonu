@@ -4,51 +4,56 @@
     ViewData["Title"] = "Satış Listesi";
 }
 
-<div style="padding: 20px;">
-    <h2>🛒 Satış Listesi</h2>
-    <a href="/Satis/Ekle" style="background:green; color:white; padding:8px 16px; 
-       text-decoration:none; border-radius:4px;">+ Yeni Satış Ekle</a>
-
-    <br /><br />
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>🛒 Satış Listesi</h2>
+        <a href="/Satis/Ekle" class="btn btn-success">+ Yeni Satış Ekle</a>
+    </div>
 
     @if (TempData["Hata"] != null)
     {
-        <div style="background:red; color:white; padding:10px; margin-bottom:15px; border-radius:4px;">
-            @TempData["Hata"]
-        </div>
+        <div class="alert alert-danger">@TempData["Hata"]</div>
     }
 
     @if (Model.Count == 0)
     {
-        <p>Henüz hiç satış yapılmamış.</p>
+        <div class="alert alert-info">Henüz hiç satış yapılmamış.</div>
     }
     else
     {
-        <table border="1" cellpadding="8" style="width:100%; border-collapse:collapse;">
-            <tr style="background:#333; color:white;">
-                <th>Satış No</th>
-                <th>Müşteri</th>
-                <th>Kitaplar</th>
-                <th>Toplam</th>
-                <th>Tarih</th>
-                <th>Durum</th>
-            </tr>
-            @foreach (var satis in Model)
-            {
-                <tr>
-                    <td>#@satis.Id</td>
-                    <td>@satis.Musteri?.Ad @satis.Musteri?.Soyad</td>
-                    <td>
-                        @foreach (var detay in satis.SatisDetaylari)
-                        {
-                            <span>@detay.Kitap?.Adi (@detay.Adet adet)</span><br />
-                        }
-                    </td>
-                    <td>@satis.ToplamTutar.ToString("C")</td>
-                    <td>@satis.SatisTarihi.ToShortDateString()</td>
-                    <td style="color:green;">@satis.OdemeDurumu</td>
-                </tr>
-            }
-        </table>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover shadow-sm">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Satış No</th>
+                        <th>Müşteri</th>
+                        <th>Kitaplar</th>
+                        <th>Toplam</th>
+                        <th>Tarih</th>
+                        <th>Durum</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var satis in Model)
+                    {
+                        <tr>
+                            <td><span class="badge bg-secondary">#@satis.Id</span></td>
+                            <td>@satis.Musteri?.Ad @satis.Musteri?.Soyad</td>
+                            <td>
+                                @foreach (var detay in satis.SatisDetaylari)
+                                {
+                                    <span class="badge bg-info text-dark me-1">
+                                        @detay.Kitap?.Adi (@detay.Adet adet)
+                                    </span>
+                                }
+                            </td>
+                            <td><strong>@satis.ToplamTutar.ToString("C")</strong></td>
+                            <td>@satis.SatisTarihi.ToShortDateString()</td>
+                            <td><span class="badge bg-success">@satis.OdemeDurumu</span></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     }
 </div>

@@ -4,48 +4,55 @@
     ViewData["Title"] = "Yeni Kitap Ekle";
 }
 
-<div style="padding: 20px; max-width: 500px;">
-    <h2>📖 Yeni Kitap Ekle</h2>
-    <hr />
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-success text-white">
+                    <h4>📖 Yeni Kitap Ekle</h4>
+                </div>
+                <div class="card-body">
+                    <form method="post" action="/Kitap/Ekle">
 
-    <form method="post" action="/Kitap/Ekle">
+                        <div class="mb-3">
+                            <label class="form-label">Kitap Adı</label>
+                            <input type="text" name="Adi" class="form-control"
+                                   placeholder="Kitabın adını girin" required />
+                        </div>
 
-        <div style="margin-bottom: 15px;">
-            <label>Kitap Adı:</label><br />
-            <input type="text" name="Adi" style="width:100%; padding:8px;" 
-                   placeholder="Kitabın adını girin" required />
+                        <div class="mb-3">
+                            <label class="form-label">Yazar</label>
+                            <input type="text" name="Yazar" class="form-control"
+                                   placeholder="Yazarın adı" required />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">ISBN</label>
+                            <input type="text" name="ISBN" class="form-control"
+                                   placeholder="978-..." />
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Fiyat (₺)</label>
+                                <input type="number" name="Fiyat" class="form-control"
+                                       step="0.01" min="0" required />
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Stok Adedi</label>
+                                <input type="number" name="StokAdedi" class="form-control"
+                                       min="0" required />
+                            </div>
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-success">💾 Kaydet</button>
+                            <a href="/Kitap/Index" class="btn btn-secondary">İptal</a>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
         </div>
-
-        <div style="margin-bottom: 15px;">
-            <label>Yazar:</label><br />
-            <input type="text" name="Yazar" style="width:100%; padding:8px;" 
-                   placeholder="Yazarın adı" required />
-        </div>
-
-        <div style="margin-bottom: 15px;">
-            <label>ISBN:</label><br />
-            <input type="text" name="ISBN" style="width:100%; padding:8px;" 
-                   placeholder="978-..." />
-        </div>
-
-        <div style="margin-bottom: 15px;">
-            <label>Fiyat (₺):</label><br />
-            <input type="number" name="Fiyat" style="width:100%; padding:8px;" 
-                   step="0.01" min="0" required />
-        </div>
-
-        <div style="margin-bottom: 15px;">
-            <label>Stok Adedi:</label><br />
-            <input type="number" name="StokAdedi" style="width:100%; padding:8px;" 
-                   min="0" required />
-        </div>
-
-        <button type="submit" style="background:green; color:white; 
-                padding:10px 20px; border:none; border-radius:4px; cursor:pointer;">
-            💾 Kaydet
-        </button>
-
-        <a href="/Kitap/Index" style="margin-left:10px; color:gray;">İptal</a>
-
-    </form>
+    </div>
 </div>

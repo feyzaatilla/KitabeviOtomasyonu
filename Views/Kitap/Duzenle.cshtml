@@ -1,54 +1,60 @@
-Şimdi Duzenle.cshtml dosyasına şunu yapıştır:
-html@model KitabeviApp.Models.Kitap
+@model KitabeviApp.Models.Kitap
 
 @{
     ViewData["Title"] = "Kitap Düzenle";
 }
 
-<div style="padding: 20px; max-width: 500px;">
-    <h2>✏️ Kitap Düzenle</h2>
-    <hr />
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-warning">
+                    <h4>✏️ Kitap Düzenle</h4>
+                </div>
+                <div class="card-body">
+                    <form method="post" action="/Kitap/Duzenle">
 
-    <form method="post" action="/Kitap/Duzenle">
+                        <input type="hidden" name="Id" value="@Model.Id" />
 
-        <input type="hidden" name="Id" value="@Model.Id" />
+                        <div class="mb-3">
+                            <label class="form-label">Kitap Adı</label>
+                            <input type="text" name="Adi" value="@Model.Adi"
+                                   class="form-control" required />
+                        </div>
 
-        <div style="margin-bottom: 15px;">
-            <label>Kitap Adı:</label><br />
-            <input type="text" name="Adi" value="@Model.Adi" 
-                   style="width:100%; padding:8px;" required />
+                        <div class="mb-3">
+                            <label class="form-label">Yazar</label>
+                            <input type="text" name="Yazar" value="@Model.Yazar"
+                                   class="form-control" required />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">ISBN</label>
+                            <input type="text" name="ISBN" value="@Model.ISBN"
+                                   class="form-control" />
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Fiyat (₺)</label>
+                                <input type="number" name="Fiyat" value="@Model.Fiyat"
+                                       class="form-control" step="0.01" min="0" required />
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Stok Adedi</label>
+                                <input type="number" name="StokAdedi" value="@Model.StokAdedi"
+                                       class="form-control" min="0" required />
+                            </div>
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-warning">💾 Güncelle</button>
+                            <a href="/Kitap/Index" class="btn btn-secondary">İptal</a>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
         </div>
-
-        <div style="margin-bottom: 15px;">
-            <label>Yazar:</label><br />
-            <input type="text" name="Yazar" value="@Model.Yazar" 
-                   style="width:100%; padding:8px;" required />
-        </div>
-
-        <div style="margin-bottom: 15px;">
-            <label>ISBN:</label><br />
-            <input type="text" name="ISBN" value="@Model.ISBN" 
-                   style="width:100%; padding:8px;" />
-        </div>
-
-        <div style="margin-bottom: 15px;">
-            <label>Fiyat (₺):</label><br />
-            <input type="number" name="Fiyat" value="@Model.Fiyat" 
-                   style="width:100%; padding:8px;" step="0.01" min="0" required />
-        </div>
-
-        <div style="margin-bottom: 15px;">
-            <label>Stok Adedi:</label><br />
-            <input type="number" name="StokAdedi" value="@Model.StokAdedi" 
-                   style="width:100%; padding:8px;" min="0" required />
-        </div>
-
-        <button type="submit" style="background:orange; color:white; 
-                padding:10px 20px; border:none; border-radius:4px; cursor:pointer;">
-            💾 Güncelle
-        </button>
-
-        <a href="/Kitap/Index" style="margin-left:10px; color:gray;">İptal</a>
-
-    </form>
+    </div>
 </div>

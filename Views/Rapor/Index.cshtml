@@ -2,73 +2,98 @@
     ViewData["Title"] = "Raporlar";
 }
 
-<div style="padding: 20px;">
+<div class="container mt-4">
     <h2>📊 Raporlar</h2>
     <hr />
 
-    <!-- Özet Kutular -->
-    <div style="display:flex; gap:20px; margin-bottom:30px;">
-        
-        <div style="background:#4CAF50; color:white; padding:20px; 
-                    border-radius:8px; flex:1; text-align:center;">
-            <h3>💰 Toplam Gelir</h3>
-            <h2>@ViewBag.ToplamGelir.ToString("C")</h2>
+    <!-- Özet Kartlar -->
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card bg-success text-white shadow">
+                <div class="card-body text-center">
+                    <h5>💰 Toplam Gelir</h5>
+                    <h2>@ViewBag.ToplamGelir.ToString("C")</h2>
+                </div>
+            </div>
         </div>
-
-        <div style="background:#2196F3; color:white; padding:20px; 
-                    border-radius:8px; flex:1; text-align:center;">
-            <h3>🛒 Toplam Satış</h3>
-            <h2>@ViewBag.ToplamSatis</h2>
+        <div class="col-md-4">
+            <div class="card bg-primary text-white shadow">
+                <div class="card-body text-center">
+                    <h5>🛒 Toplam Satış</h5>
+                    <h2>@ViewBag.ToplamSatis</h2>
+                </div>
+            </div>
         </div>
-
-        <div style="background:#9C27B0; color:white; padding:20px; 
-                    border-radius:8px; flex:1; text-align:center;">
-            <h3>👤 Toplam Müşteri</h3>
-            <h2>@ViewBag.ToplamMusteri</h2>
+        <div class="col-md-4">
+            <div class="card bg-purple text-white shadow" style="background:#9C27B0!important;">
+                <div class="card-body text-center">
+                    <h5>👤 Toplam Müşteri</h5>
+                    <h2>@ViewBag.ToplamMusteri</h2>
+                </div>
+            </div>
         </div>
-
     </div>
 
     <!-- En Çok Satan Kitaplar -->
-    <h3>📚 En Çok Satan Kitaplar</h3>
-    <table border="1" cellpadding="8" style="width:100%; border-collapse:collapse; margin-bottom:30px;">
-        <tr style="background:#333; color:white;">
-            <th>Kitap Adı</th>
-            <th>Satılan Adet</th>
-            <th>Toplam Gelir</th>
-        </tr>
-        @foreach (var kitap in ViewBag.EnCokSatan)
-        {
-            <tr>
-                <td>@kitap.KitapAdi</td>
-                <td>@kitap.ToplamAdet adet</td>
-                <td>@kitap.ToplamGelir.ToString("C")</td>
-            </tr>
-        }
-    </table>
+    <div class="card shadow mb-4">
+        <div class="card-header bg-dark text-white">
+            <h5>📚 En Çok Satan Kitaplar</h5>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Kitap Adı</th>
+                        <th>Satılan Adet</th>
+                        <th>Toplam Gelir</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var kitap in ViewBag.EnCokSatan)
+                    {
+                        <tr>
+                            <td>@kitap.KitapAdi</td>
+                            <td><span class="badge bg-info text-dark">@kitap.ToplamAdet adet</span></td>
+                            <td><strong>@kitap.ToplamGelir.ToString("C")</strong></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 
     <!-- Az Stoklu Kitaplar -->
-    <h3>⚠️ Stoku Az Olan Kitaplar (5'ten az)</h3>
-    @if (ViewBag.AzStok.Count == 0)
-    {
-        <p style="color:green;">Tüm kitapların stoğu yeterli!</p>
-    }
-    else
-    {
-        <table border="1" cellpadding="8" style="width:100%; border-collapse:collapse;">
-            <tr style="background:#f44336; color:white;">
-                <th>Kitap Adı</th>
-                <th>Yazar</th>
-                <th>Kalan Stok</th>
-            </tr>
-            @foreach (var kitap in ViewBag.AzStok)
+    <div class="card shadow">
+        <div class="card-header bg-danger text-white">
+            <h5>⚠️ Stoku Az Olan Kitaplar (5'ten az)</h5>
+        </div>
+        <div class="card-body">
+            @if (ViewBag.AzStok.Count == 0)
             {
-                <tr>
-                    <td>@kitap.Adi</td>
-                    <td>@kitap.Yazar</td>
-                    <td style="color:red; font-weight:bold;">@kitap.StokAdedi</td>
-                </tr>
+                <div class="alert alert-success">Tüm kitapların stoğu yeterli! ✅</div>
             }
-        </table>
-    }
+            else
+            {
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Kitap Adı</th>
+                            <th>Yazar</th>
+                            <th>Kalan Stok</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var kitap in ViewBag.AzStok)
+                        {
+                            <tr>
+                                <td>@kitap.Adi</td>
+                                <td>@kitap.Yazar</td>
+                                <td><span class="badge bg-danger">@kitap.StokAdedi</span></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
 </div>
