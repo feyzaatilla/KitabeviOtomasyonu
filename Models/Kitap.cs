@@ -9,5 +9,6 @@ namespace KitabeviApp.Models
         public decimal Fiyat { get; set;}
         public int StokAdedi { get; set; }
         public DateTime EklenmeTarihi { get; set; } = DateTime.Now;
+        public string? FotoğrafYolu { get; set; } = string.Empty;
     }
 }

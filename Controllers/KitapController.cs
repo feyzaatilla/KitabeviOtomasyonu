@@ -7,29 +7,39 @@ namespace KitabeviApp.Controllers
     public class KitapController : Controller
     {
         private readonly AppDbContext _db;
+        private readonly IWebHostEnvironment _env;
 
-        public KitapController(AppDbContext db)
+        public KitapController(AppDbContext db, IWebHostEnvironment env)
         {
             _db = db;
+            _env = env;
         }
 
-        // Kitap listesi
         public async Task<IActionResult> Index()
         {
             var kitaplar = await _db.Kitaplar.ToListAsync();
             return View(kitaplar);
         }
 
-        // Ekleme formu - GET
         public IActionResult Ekle()
         {
             return View();
         }
 
-        // Ekleme kaydet - POST
         [HttpPost]
-        public async Task<IActionResult> Ekle(Kitap kitap)
+        public async Task<IActionResult> Ekle(Kitap kitap, IFormFile? FotoğrafDosyası)
         {
+            if (FotoğrafDosyası != null && FotoğrafDosyası.Length > 0)
+            {
+                var dosyaAdı = Guid.NewGuid().ToString() + Path.GetExtension(FotoğrafDosyası.FileName);
+                var kayıtYolu = Path.Combine(_env.WebRootPath, "uploads", dosyaAdı);
+                using (var stream = new FileStream(kayıtYolu, FileMode.Create))
+                {
+                    await FotoğrafDosyası.CopyToAsync(stream);
+                }
+                kitap.FotoğrafYolu = "/uploads/" + dosyaAdı;
+            }
+
             if (ModelState.IsValid)
             {
                 _db.Kitaplar.Add(kitap);
@@ -39,7 +49,6 @@ namespace KitabeviApp.Controllers
             return View(kitap);
         }
 
-        // Düzenleme formu - GET
         public async Task<IActionResult> Duzenle(int id)
         {
             var kitap = await _db.Kitaplar.FindAsync(id);
@@ -47,10 +56,20 @@ namespace KitabeviApp.Controllers
             return View(kitap);
         }
 
-        // Düzenleme kaydet - POST
         [HttpPost]
-        public async Task<IActionResult> Duzenle(Kitap kitap)
+        public async Task<IActionResult> Duzenle(Kitap kitap, IFormFile? FotoğrafDosyası)
         {
+            if (FotoğrafDosyası != null && FotoğrafDosyası.Length > 0)
+            {
+                var dosyaAdı = Guid.NewGuid().ToString() + Path.GetExtension(FotoğrafDosyası.FileName);
+                var kayıtYolu = Path.Combine(_env.WebRootPath, "uploads", dosyaAdı);
+                using (var stream = new FileStream(kayıtYolu, FileMode.Create))
+                {
+                    await FotoğrafDosyası.CopyToAsync(stream);
+                }
+                kitap.FotoğrafYolu = "/uploads/" + dosyaAdı;
+            }
+
             if (ModelState.IsValid)
             {
                 _db.Kitaplar.Update(kitap);
@@ -60,7 +79,6 @@ namespace KitabeviApp.Controllers
             return View(kitap);
         }
 
-        // Silme
         public async Task<IActionResult> Sil(int id)
         {
             var kitap = await _db.Kitaplar.FindAsync(id);
